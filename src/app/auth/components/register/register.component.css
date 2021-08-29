@@ -1,0 +1,22 @@
+:host ::ng-deep .p-password input {
+  width: 100%;
+}
+
+.auth-input {
+  width: 100%;
+}
+.h-100vh {
+  height: calc(100vh - 16px);
+}
+
+.login-card-holder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+:host ::ng-deep .p-card {
+  box-shadow: -9px -9px 1px -1px rgb(0 0 0 / 20%),
+    9px 9px 1px -1px rgb(0 0 0 / 20%), -12px 12px 3px 0 rgb(0 0 0 / 12%),
+    12px -12px 3px 0 rgb(0 0 0 / 12%);
+}
