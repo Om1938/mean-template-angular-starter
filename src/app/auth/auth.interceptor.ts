@@ -20,10 +20,15 @@ export class AuthInterceptor implements HttpInterceptor {
     const user = this.authService.user.value;
     const isLoggedIn = user && user.token;
     const isApiUrl = request.url.startsWith(environment.apiURL);
-    if (isLoggedIn && isApiUrl) {
-      request = request.clone({
-        setHeaders: { Authorization: `Bearer ${user?.token}` },
-      });
+    if (isApiUrl) {
+      if (isLoggedIn) {
+        request = request.clone({
+          setHeaders: { Authorization: `Bearer ${user?.token}` },
+        });
+      } else {
+        if(user?.isTokenExpired())
+        this.authService.logout();
+      }
     }
     return next.handle(request);
   }

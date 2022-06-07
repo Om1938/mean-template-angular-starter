@@ -1,3 +1,5 @@
+import { throwError } from 'rxjs';
+
 export class LoggedInUser {
   constructor(
     public username: string,
@@ -7,9 +9,13 @@ export class LoggedInUser {
   ) {}
 
   get token() {
-    if (!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
+    if (this.isTokenExpired()) {
       return null;
     }
     return this._token;
+  }
+
+  isTokenExpired() {
+    return !this._tokenExpirationDate || new Date() > this._tokenExpirationDate;
   }
 }

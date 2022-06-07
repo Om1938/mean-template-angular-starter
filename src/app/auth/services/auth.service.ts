@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, Observable, of, ReplaySubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
@@ -56,26 +56,25 @@ export class AuthService {
       _tokenExpirationDate: string;
     } = JSON.parse(localStorage.getItem('userData') || '{}');
 
-    if (!userData) {
-      return;
+    if (!userData || !userData._token) {
+      this.logout();
+      return of(1);
     }
 
-    this.Authenticate(userData._token, userData.email, userData.id);
+    this.user.next(
+      new LoggedInUser(
+        'Temp - User',
+        'Temp - ID',
+        userData._token,
+        new Date(userData._tokenExpirationDate)
+      )
+    );
 
-    // const loadedUser = new LoggedInUser(
-    //   userData.email,
-    //   userData.id,
-    //   userData._token,
-    //   new Date(userData._tokenExpirationDate)
-    // );
-
-    // if (loadedUser.token) {
-    //   this.user.next(loadedUser);
-    //   const expirationDuration =
-    //     new Date(userData._tokenExpirationDate).getTime() -
-    //     new Date().getTime();
-    //   this.startRefreshTokenTimer(expirationDuration);
-    // }
+    return this._http.get(`${this.AuthURL}/tokenProfile`).pipe(
+      tap((res: any) => {
+        this.Authenticate(res.jwtToken, res.username, res._id);
+      })
+    );
   }
 
   Authenticate(token: string, username: string, _id: string) {
