@@ -48,6 +48,9 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
   submitForm() {
+
+    console.log(this.loginForm);
+
     if (this.loginForm.valid) {
       this.disableSubmit = true;
       this._authService

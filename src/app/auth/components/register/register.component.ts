@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {
+  UntypedFormGroup,
+  UntypedFormBuilder,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ToastService } from 'src/app/toast.service';
@@ -14,12 +18,12 @@ import { AuthService } from '../../services/auth.service';
 export class RegisterComponent implements OnInit {
   disableSubmit: boolean = false;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private _authService: AuthService,
     private toastr: ToastService,
     private router: Router
   ) {}
-  registerForm: FormGroup = this.fb.group(
+  registerForm: UntypedFormGroup = this.fb.group(
     {
       username: [
         '',

@@ -21,10 +21,10 @@
             </div>
           </div>
           <div class="p-col-12">
-            <div class="p-inputgroup .p-fluid">
+            <div class="p-inputgroup ">
               <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
               <!-- <input type="text" pInputText placeholder="Username" /> -->
-              <p-password placeholder="Password" [ngStyle]="{ width: '100%' }" formControlName="password">
+              <p-password placeholder="Password"  [inputStyle]="{ width: '100%' }"  [ngStyle]="{ width: '100%' }" formControlName="password">
                 <ng-template pTemplate="header">
                   <h6>Pick a password</h6>
                 </ng-template>
@@ -65,7 +65,7 @@
             <div class="p-inputgroup .p-fluid">
               <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
               <!-- <input type="text" pInputText placeholder="Username" /> -->
-              <p-password formControlName="repeat_password" placeholder="Repeat Password" [ngStyle]="{ width: '100%' }"
+              <p-password formControlName="repeat_password" placeholder="Repeat Password" [ngStyle]="{ width: '100%' }"  [inputStyle]="{ width: '100%' }"
                 promptLabel="Repeat the Password">
               </p-password>
             </div>
